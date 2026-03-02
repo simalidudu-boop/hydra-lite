@@ -1,0 +1,47 @@
+name: HYDRA LITE Trading Bot
+
+on:
+  schedule:
+    # Run every 15 minutes, 24/7
+    - cron: '*/15 * * * *'
+
+  # Allow manual trigger for testing
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  trade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run HYDRA LITE
+        env:
+          BYBIT_API_KEY: ${{ secrets.BYBIT_API_KEY }}
+          BYBIT_API_SECRET: ${{ secrets.BYBIT_API_SECRET }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: python hydra_lite.py
+
+      - name: Save bot state
+        run: |
+          git config --local user.email "hydra@bot.com"
+          git config --local user.name "HYDRA Bot"
+          git add state.json
+          git diff --staged --quiet || git commit -m "🐍 state update $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git push
