@@ -1,1 +1,26 @@
 
+{
+  "account_balance": 20.0,
+  "peak_balance": 20.0,
+  "open_positions": [],
+  "trade_history": [],
+  "daily_pnl": 0.0,
+  "daily_trades": 0,
+  "daily_wins": 0,
+  "daily_losses_count": 0,
+  "weekly_pnl": 0.0,
+  "consecutive_losses": 0,
+  "circuit_breaker_until": null,
+  "aggression_level": 1.0,
+  "last_run": null,
+  "last_daily_reset": null,
+  "last_weekly_reset": null,
+  "total_trades": 0,
+  "total_wins": 0,
+  "total_pnl": 0.0,
+  "best_trade": 0.0,
+  "worst_trade": 0.0,
+  "indicator_cache": {},
+  "bot_version": "1.0.0",
+  "started_at": null
+}
